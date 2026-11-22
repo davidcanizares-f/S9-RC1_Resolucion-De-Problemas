@@ -3,11 +3,14 @@ package negocio;
 import modelo.Producto;
 
 import java.util.ArrayList;
-
+// Maneja la lista de productos y las reglas del inventario.
+// No imprime nada: de eso se encarga MenuPrincipal.
 public class GestorInventario {
 
     //Atributos
+
     private ArrayList<Producto> productos;
+    // Capital aproximado del minimarket en USD; se usa para la alerta de RF6
     private static final double CAPITAL_MAXIMO = 1500.0;
 
     //Metodos
@@ -33,11 +36,11 @@ public class GestorInventario {
         }
         return null;
     }
-
+    // Devuelve una copia para que nadie modifique la lista original desde afuera
     public ArrayList<Producto> listar(){
         return new ArrayList<>(productos);
     }
-
+    // Suma unidades al stock. Rechaza si el producto no existe o la cantidad no es positiva
     public boolean registrarEntrada(String codigo, int cantidad){
         Producto p = buscar(codigo);
         if (p != null && cantidad > 0){
@@ -56,7 +59,7 @@ public class GestorInventario {
         }
         return false;
     }
-
+    // Recorre la lista y devuelve los productos con stock bajo (cantidad <= minimo)
     public ArrayList<Producto> listarStockBajo(){
         ArrayList<Producto> productosStockBajo = new ArrayList<>();
         for (Producto p : productos){
@@ -66,7 +69,8 @@ public class GestorInventario {
         }
         return productosStockBajo;
     }
-
+    // Recorre la lista y devuelve los perecederos proximos a caducar.
+    // Llama a estaProximoACaducar() sin preguntar el tipo (polimorfismo)
     public ArrayList<Producto> listarProximosACaducar(){
         ArrayList<Producto> productosProximosACaducar = new ArrayList<>();
         for (Producto p : productos){
@@ -76,14 +80,17 @@ public class GestorInventario {
         }
         return productosProximosACaducar;
     }
+    // Suma cantidad x costo de todos los products
 
     public double calcularValorTotal(){
         double valorTotal = 0;
         for (Producto p : productos){
             valorTotal += p.calcularValorCosto();
         }
+
         return valorTotal;
     }
+    // True si el valor del inventario es mayor al capital maximo
     public boolean superaCapitalMaximo() {
         return calcularValorTotal() > CAPITAL_MAXIMO;
     }

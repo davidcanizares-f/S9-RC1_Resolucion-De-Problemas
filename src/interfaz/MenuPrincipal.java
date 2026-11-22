@@ -9,8 +9,10 @@ import modelo.ProductoNoPerecedero;
 import modelo.ProductoPerecedero;
 import negocio.GestorInventario;
 
+// Interfaz de consola: muestra el menu, lee los datos con Scanner,
+// los valida con ciclos while y llama a GestorInventario.
 public class MenuPrincipal {
-
+    // Categorias fijas que se muestran al registrar un producto
     private static final String[] CATEGORIAS = {"Abarrotes", "Lácteos", "Bebidas", "Snacks", "Limpieza"};
 
     // Atributos
@@ -24,7 +26,7 @@ public class MenuPrincipal {
     }
 
     // ==================== MENU ====================
-
+// Repite el menu hasta que el usuario elige 0
     public void mostrarMenu() {
         int opcion = -1;
         while (opcion != 0) {
@@ -89,7 +91,7 @@ public class MenuPrincipal {
         int stockMinimo = leerEntero("Stock mínimo: ", "stock mínimo", 0, 100000);
         double costo = leerDecimal("Costo unitario (USD): ", "costo unitario", 0.01);
         double precio = leerDecimal("Precio de venta (USD): ", "precio de venta", costo);
-
+        // Segun el tipo se crea un ProductoPerecedero (pide fecha) o un ProductoNoPerecedero (pide ubicacion)
         int tipo = leerEntero("¿Es perecedero? 1) Sí  2) No: ", "tipo de producto", 1, 2);
 
         Producto nuevo;
@@ -147,7 +149,7 @@ public class MenuPrincipal {
 
         int tipo = leerEntero("1) Entrada  2) Salida: ", "tipo de movimiento", 1, 2);
         int cantidad = leerEntero("Cantidad: ", "cantidad", 1, 100000);
-
+        // registrarEntrada no se revisa porque el producto ya existe y la cantidad es >= 1
         if (tipo == 1) {
             gestor.registrarEntrada(codigo, cantidad);
             System.out.println("Entrada registrada. Nuevo stock: " + p.getCantidad());
@@ -181,6 +183,7 @@ public class MenuPrincipal {
         }
         for (Producto p : lista) {
             System.out.println(p);
+            // Muestra el precio con descuento redondeado a 2 decimales
             System.out.println("   Precio final con descuento: $" + Math.round(p.calcularPrecioFinal() * 100) / 100.0);
         }
     }
