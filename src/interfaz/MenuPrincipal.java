@@ -29,13 +29,13 @@ public class MenuPrincipal {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("\n===== MINIMARKET - INVENTARIO =====");
-            System.out.println("1) Registrar producto");
-            System.out.println("2) Consultar productos");
-            System.out.println("3) Actualizar stock (entrada / salida)");
-            System.out.println("4) Productos con stock bajo");
-            System.out.println("5) Productos próximos a caducar");
-            System.out.println("6) Valor total del inventario");
-            System.out.println("0) Salir");
+            System.out.println("1. Registrar producto");
+            System.out.println("2. Consultar productos");
+            System.out.println("3. Actualizar stock (entrada / salida)");
+            System.out.println("4. Productos con stock bajo");
+            System.out.println("5. Productos próximos a caducar");
+            System.out.println("6. Valor total del inventario");
+            System.out.println("0. Salir");
             opcion = leerEntero("Elija una opción: ", "opción", 0, 6);
 
             switch (opcion) {
@@ -58,7 +58,7 @@ public class MenuPrincipal {
                     mostrarValorInventario();
                     break;
                 default:
-                    System.out.println("Hasta pronto.");
+                    System.out.println("Hasta pronto...");
                     break;
             }
         }
@@ -188,6 +188,9 @@ public class MenuPrincipal {
     private void mostrarValorInventario() {
         System.out.println("\n--- Valor total del inventario ---");
         System.out.println("Valor total: $" + Math.round(gestor.calcularValorTotal() * 100) / 100.0);
+        if (gestor.superaCapitalMaximo()) {
+            System.out.println("Alerta: el valor del inventario supera el capital de USD 1500.00.");
+        }
     }
 
     // ==================== LECTURA Y VALIDACION (con while) ====================

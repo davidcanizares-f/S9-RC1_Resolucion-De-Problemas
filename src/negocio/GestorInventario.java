@@ -8,6 +8,7 @@ public class GestorInventario {
 
     //Atributos
     private ArrayList<Producto> productos;
+    private static final double CAPITAL_MAXIMO = 1500.0;
 
     //Metodos
     public GestorInventario(){
@@ -82,6 +83,9 @@ public class GestorInventario {
             valorTotal += p.calcularValorCosto();
         }
         return valorTotal;
+    }
+    public boolean superaCapitalMaximo() {
+        return calcularValorTotal() > CAPITAL_MAXIMO;
     }
 
 }
