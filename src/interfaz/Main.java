@@ -1,7 +1,7 @@
 package interfaz;
 
 public class Main {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         MenuPrincipal menu = new MenuPrincipal();
         menu.mostrarMenu();
     }

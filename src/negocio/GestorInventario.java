@@ -14,22 +14,20 @@ public class GestorInventario {
         this.productos = new ArrayList<>();
     }
 
+    // Registra el producto si no existe otro con el mismo codigo
     public boolean registrar(Producto p){
-        if (p != null && p.getCodigo() != null && !p.getCodigo().trim().isBlank()
-                && p.getNombre() != null && !p.getNombre().trim().isBlank()
-                && buscar(p.getCodigo()) == null){
+        if (p != null && buscar(p.getCodigo()) == null){
             productos.add(p);
             return true;
         }
         return false;
     }
 
+    // Devuelve el producto con ese codigo, o null si no existe
     public Producto buscar(String codigo){
-        if (codigo != null && !codigo.trim().isBlank()){
-            for (Producto p : productos){
-                if (p.getCodigo().equals(codigo.trim())){
-                    return p;
-                }
+        for (Producto p : productos){
+            if (p.getCodigo().equals(codigo)){
+                return p;
             }
         }
         return null;
@@ -40,23 +38,20 @@ public class GestorInventario {
     }
 
     public boolean registrarEntrada(String codigo, int cantidad){
-        if (codigo != null && !codigo.trim().isBlank() && cantidad > 0){
-            Producto p = buscar(codigo);
-            if (p != null){
-                p.setCantidad(p.getCantidad() + cantidad);
-                return true;
-            }
+        Producto p = buscar(codigo);
+        if (p != null && cantidad > 0){
+            p.setCantidad(p.getCantidad() + cantidad);
+            return true;
         }
         return false;
     }
 
+    // Rechaza la salida si no hay stock suficiente
     public boolean registrarSalida(String codigo, int cantidad){
-        if (codigo != null && !codigo.trim().isBlank() && cantidad > 0){
-            Producto p = buscar(codigo);
-            if (p != null && p.getCantidad() >= cantidad){
-                p.setCantidad(p.getCantidad() - cantidad);
-                return true;
-            }
+        Producto p = buscar(codigo);
+        if (p != null && cantidad > 0 && p.getCantidad() >= cantidad){
+            p.setCantidad(p.getCantidad() - cantidad);
+            return true;
         }
         return false;
     }
