@@ -28,7 +28,7 @@ public class MenuPrincipal {
     public void mostrarMenu() {
         int opcion = -1;
         while (opcion != 0) {
-            System.out.println("\n===== MINIMARKET - INVENTARIO =====");
+            System.out.println("\n===== MINIMARKET ORBSTORE - INVENTARIO =====");
             System.out.println("1. Registrar producto");
             System.out.println("2. Consultar productos");
             System.out.println("3. Actualizar stock (entrada / salida)");
